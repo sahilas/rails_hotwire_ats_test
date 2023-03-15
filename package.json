@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "mrujs": "^0.10.1"
+  }
+}
