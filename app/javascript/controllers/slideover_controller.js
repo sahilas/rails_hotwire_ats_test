@@ -14,21 +14,21 @@ export default class extends Controller {
     }
   }
 
-  open() {
-  document.addEventListener("submit:success", () => {
-    this.close()
-  }, { once: true })
-}
+//   open() {
+//   document.addEventListener("submit:success", () => {
+//     this.close()
+//   }, { once: true })
+// }
 
-  // open() {
-  //   this.visible = true
-  //   document.body.insertAdjacentHTML('beforeend', this.backgroundHtml)
-  //   this.background = document.querySelector(`#slideover-background`)
-  //   this.toggleSlideover()
-  //   document.addEventListener("submit:success", () => {
-  //     this.close()
-  //   }, { once: true })
-  // }
+  open() {
+    this.visible = true
+    document.body.insertAdjacentHTML('beforeend', this.backgroundHtml)
+    this.background = document.querySelector(`#slideover-background`)
+    this.toggleSlideover()
+    document.addEventListener("submit:success", () => {
+      this.close()
+    }, { once: true })
+  }
 
   close() {
     this.visible = false

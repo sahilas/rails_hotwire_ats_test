@@ -27,7 +27,7 @@ end
   end
 
   # POST /offers or /offers.json
-  
+
   def create
     @offer = Offer.new(offer_params)
     @offer.profile = current_member.profile
@@ -59,7 +59,6 @@ end
       .inner_html('#job-form', html: html), status: :unprocessable_entity
   end
     end
-  end
 
   # DELETE /offers/1 or /offers/1.json
   def destroy
