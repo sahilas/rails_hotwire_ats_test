@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :applicants
   resources :offers
   devise_for :members,
  path: '',

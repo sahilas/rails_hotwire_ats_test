@@ -29,15 +29,15 @@ end
   # POST /offers or /offers.json
 
   def create
-    @offer = Offer.new(offer_params)
+    @offer = Offer.new()
     @offer.profile = current_member.profile
 
     # respond_to do |format|
-      if @offer.save
-    html = render_to_string(partial: 'offer', locals: { offer: @offer })
-    render operations: cable_car
-      .prepend('#offers', html: html)
-      .dispatch_event(name: 'submit:success')
+    if @offer.save
+      html = render_to_string(partial: 'offer', locals: { offer: @offer })
+      render operations: cable_car
+        .prepend('#offers', html: html)
+        .dispatch_event(name: 'submit:success')
   else
     html = render_to_string(partial: 'form', locals: { offer: @offer })
     render operations: cable_car
@@ -80,4 +80,4 @@ end
     def offer_params
       params.require(:offer).permit(:title, :status, :offer_type, :location, :profile_id, :description)
     end
-end
+  end
