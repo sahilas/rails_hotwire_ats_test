@@ -1,0 +1,43 @@
+<%= form_with(model: offer, html: { class: "space-y-6" }, data: {remote: true }) do |form| %>
+  <% if offer.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(offer.errors.count, "error") %> prohibited this offer from being saved:</h2>
+
+      <ul>
+        <% offer.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= form.label :title %>
+    <div class="mt-1">
+      <%= form.text_field :title %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= form.rich_text_area :description %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :status %>
+    <%= form.select :status, options_for_select(Offer.statuses.map{|key, _value| [key.humanize, key]}, offer.status), {}, { class: "mt-1" } %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :offer_type %>
+    <%= form.select :offer_type, options_for_select(Offer.offer_types.map{|key, _value| [key.humanize, key]}, offer.offer_type), {}, { class: "mt-1" } %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :location %>
+    <div class="mt-1">
+      <%= form.text_field :location %>
+    </div>
+  </div>
+
+  <%= form.submit 'Submit', class: 'btn-primary float-right' %>
+<% end %>
