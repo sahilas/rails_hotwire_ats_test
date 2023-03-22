@@ -29,7 +29,7 @@ end
   # POST /offers or /offers.json
 
   def create
-    @offer = Offer.new()
+    @offer = Offer.new(offer_params)
     @offer.profile = current_member.profile
 
     # respond_to do |format|

@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-  resources :applicants
+  resources :applicants do
+    patch :change_stage, on: :member
+  end
   resources :offers
   devise_for :members,
  path: '',
