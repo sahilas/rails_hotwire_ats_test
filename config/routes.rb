@@ -15,9 +15,6 @@ Rails.application.routes.draw do
     sign_out: 'signout'
   }
 
-
-
-
   get 'dashboard/show'
   # root to: 'dashboard#show'
   
