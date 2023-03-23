@@ -1,6 +1,8 @@
 class ApplicantsController < ApplicationController
   before_action :authenticate_member!
   before_action :set_applicant, only: %i[ show edit update destroy change_stage ]
+  include Filterable
+
   def change_stage
     @applicant.update(applicant_params)
     head :ok
@@ -8,8 +10,20 @@ class ApplicantsController < ApplicationController
 
   # GET /applicants or /applicants.json
   def index
-    @applicants = Applicant.all
+    if search_params.present?
+      @applicants = filter!(Applicant)
+      @applicants = Applicant.includes(:offer)
+      @applicants = @applicants.where(offer_id: search_params[:offer]) if search_params[:offer].present?
+      @applicants = @applicants.text_search(search_params[:query]) if search_params[:query].present?
+      if search_params[:sort].present?
+        sort = search_params[:sort].split('-')
+        @applicants = @applicants.order("#{sort[0]} #{sort[1]}")
+      end
+    else
+      @applicants = Applicant.includes(:offer).all
+    end
   end
+
 
   # GET /applicants/1 or /applicants/1.json
   def show
@@ -75,4 +89,11 @@ class ApplicantsController < ApplicationController
   def applicant_params
     params.require(:applicant).permit(:first_name, :last_name, :email, :phone, :stage, :status, :offer_id, :resume)
   end
+end
+
+private
+
+# Be sure to place this at the bottom of the controller, with the other private methods
+def search_params
+  params.permit(:query, :offer, :sort)
 end
