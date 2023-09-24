@@ -28,4 +28,5 @@ Rails.application.routes.draw do
  # devise_scope :member do
    # root to: 'devise/sessions#new'
   #end
+  # get '/up'
 end
